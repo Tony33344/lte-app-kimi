@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LTE apartments | Luxury Stays in Maribor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --cream: #FAF9F6;
+            --charcoal: #1a1a1a;
+            --ochre: #C17F59;
+            --sage: #8B9D83;
+            --stone: #E8E4E0;
+            --warm-white: #F5F3EF;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--cream);
+            color: var(--charcoal);
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.4s ease;
+        }
+
+        .nav.scrolled {
+            background: rgba(250, 249, 246, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 3rem;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+        }
+
+        .nav-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--charcoal);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-weight: 400;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--ochre);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero */
+        .hero {
+            height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            position: relative;
+        }
+
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 8vw;
+            background: var(--cream);
+        }
+
+        .hero-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            color: var(--ochre);
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 5vw, 5rem);
+            line-height: 1.1;
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .hero-title em {
+            font-style: italic;
+            color: var(--ochre);
+        }
+
+        .hero-text {
+            font-size: 1rem;
+            color: #666;
+            max-width: 400px;
+            margin-bottom: 3rem;
+            line-height: 1.8;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            background: var(--charcoal);
+            color: var(--cream);
+            padding: 1rem 2.5rem;
+            text-decoration: none;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            width: fit-content;
+        }
+
+        .hero-cta:hover {
+            background: var(--ochre);
+            gap: 1.5rem;
+        }
+
+        .hero-image {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-stats {
+            position: absolute;
+            bottom: 3rem;
+            left: 3rem;
+            right: 3rem;
+            display: flex;
+            justify-content: space-between;
+            color: white;
+            padding: 2rem;
+            background: rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            display: block;
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            opacity: 0.8;
+            margin-top: 0.5rem;
+        }
+
+        /* Section styling */
+        .section {
+            padding: 10rem 5vw;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 6rem;
+        }
+
+        .section-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            color: var(--ochre);
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .section-title {
+            font-size: clamp(2.5rem, 4vw, 3.5rem);
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+        }
+
+        .section-subtitle {
+            color: #666;
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        /* Properties Grid - Editorial Style */
+        .properties {
+            background: var(--warm-white);
+        }
+
+        .property-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .property-item {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .property-item:nth-child(even) {
+            grid-template-columns: 1fr 1.2fr;
+        }
+
+        .property-item:nth-child(even) .property-visual {
+            order: 2;
+        }
+
+        .property-visual {
+            position: relative;
+        }
+
+        .property-img-main {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+        }
+
+        .property-img-secondary {
+            position: absolute;
+            width: 200px;
+            height: 280px;
+            object-fit: cover;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .property-item:nth-child(odd) .property-img-secondary {
+            bottom: -40px;
+            right: -40px;
+        }
+
+        .property-item:nth-child(even) .property-img-secondary {
+            bottom: -40px;
+            left: -40px;
+        }
+
+        .property-content {
+            padding: 2rem 0;
+        }
+
+        .property-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 6rem;
+            color: var(--stone);
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+
+        .property-name {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+
+        .property-tagline {
+            font-style: italic;
+            color: var(--ochre);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .property-description {
+            color: #555;
+            margin-bottom: 2rem;
+            line-height: 1.9;
+            font-size: 0.95rem;
+        }
+
+        .property-features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.85rem;
+        }
+
+        .feature i {
+            color: var(--ochre);
+            font-size: 0.9rem;
+        }
+
+        .property-rating {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding: 1rem 0;
+            border-top: 1px solid var(--stone);
+            border-bottom: 1px solid var(--stone);
+        }
+
+        .rating-score {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 500;
+        }
+
+        .rating-stars {
+            color: var(--ochre);
+            font-size: 0.9rem;
+        }
+
+        .rating-count {
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        .property-price {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .property-price strong {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            font-weight: 400;
+        }
+
+        .property-price span {
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        .property-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--charcoal);
+            color: var(--cream);
+            padding: 1rem 2.5rem;
+            border: none;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .btn-primary:hover {
+            background: var(--ochre);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--charcoal);
+            padding: 1rem 2.5rem;
+            border: 1px solid var(--charcoal);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .btn-secondary:hover {
+            background: var(--charcoal);
+            color: var(--cream);
+        }
+
+        /* Booking Section */
+        .booking {
+            background: var(--charcoal);
+            color: var(--cream);
+        }
+
+        .booking .section-title {
+            color: var(--cream);
+        }
+
+        .booking-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 4rem;
+        }
+
+        .booking-tab {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.2);
+            color: rgba(255,255,255,0.6);
+            padding: 1rem 2rem;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .booking-tab.active {
+            background: var(--ochre);
+            border-color: var(--ochre);
+            color: white;
+        }
+
+        .booking-tab:hover:not(.active) {
+            border-color: rgba(255,255,255,0.5);
+            color: rgba(255,255,255,0.9);
+        }
+
+        .booking-content {
+            max-width: 900px;
+            margin: 0 auto;
+            display: none;
+        }
+
+        .booking-content.active {
+            display: block;
+        }
+
+        .widget-box {
+            background: var(--cream);
+            border-radius: 4px;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            color: var(--charcoal);
+        }
+
+        .widget-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--stone);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--charcoal);
+            color: var(--cream);
+            padding: 6rem 5vw 3rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 4rem;
+            max-width: 1400px;
+            margin: 0 auto 4rem;
+        }
+
+        .footer-brand {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-tagline {
+            color: rgba(255,255,255,0.6);
+            font-size: 0.9rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .footer-heading {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 1.5rem;
+            color: var(--ochre);
+            font-weight: 500;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--ochre);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 3rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.4);
+        }
+
+        /* Photo Gallery Modal */
+        .gallery-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .gallery-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .gallery-content {
+            position: relative;
+            max-width: 90vw;
+            max-height: 90vh;
+        }
+
+        .gallery-content img {
+            max-width: 100%;
+            max-height: 85vh;
+            object-fit: contain;
+            display: block;
+        }
+
+        .gallery-counter {
+            position: absolute;
+            bottom: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+        }
+
+        .gallery-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            z-index: 2001;
+            transition: color 0.3s ease;
+        }
+
+        .gallery-close:hover {
+            color: var(--ochre);
+        }
+
+        .gallery-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 2001;
+        }
+
+        .gallery-nav:hover {
+            background: var(--ochre);
+        }
+
+        .gallery-prev {
+            left: 20px;
+        }
+
+        .gallery-next {
+            right: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .gallery-nav {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+            .gallery-prev {
+                left: 10px;
+            }
+            .gallery-next {
+                right: 10px;
+            }
+            .gallery-close {
+                right: 15px;
+                top: 15px;
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 1024px) {
+            .hero {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-image {
+                height: 50vh;
+            }
+            
+            .hero-stats {
+                position: relative;
+                bottom: auto;
+                left: auto;
+                right: auto;
+                background: var(--charcoal);
+            }
+            
+            .property-item,
+            .property-item:nth-child(even) {
+                grid-template-columns: 1fr;
+            }
+            
+            .property-item:nth-child(even) .property-visual {
+                order: 0;
+            }
+            
+            .property-img-secondary {
+                display: none;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero-content {
+                padding: 3rem;
+            }
+            
+            .hero-stats {
+                flex-wrap: wrap;
+                gap: 2rem;
+            }
+            
+            .property-features {
+                grid-template-columns: 1fr;
+            }
+            
+            .property-actions {
+                flex-direction: column;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-logo">LTE apartments</div>
+        <ul class="nav-links">
+            <li><a href="#properties">Apartments</a></li>
+            <li><a href="#booking">Book</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-label">Maribor, Slovenia</div>
+            <h1 class="hero-title">Your Home in Wine Country</h1>
+            <p class="hero-text">Three thoughtfully designed apartments in the heart of Slovenia's oldest city. Where modern comfort meets local charm.</p>
+            <a href="#properties" class="hero-cta">
+                Explore Apartments
+                <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+        <div class="hero-image">
+            <img src="images/bigopen/hero1.avif" alt="Maribor Apartment">
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number">3</span>
+                    <span class="stat-label">Properties</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">487+</span>
+                    <span class="stat-label">Guests</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">4.6</span>
+                    <span class="stat-label">Rating</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">8</span>
+                    <span class="stat-label">Years</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Properties -->
+    <section id="properties" class="section properties">
+        <div class="section-header">
+            <div class="section-label">The Collection</div>
+            <h2 class="section-title">Three Unique Spaces</h2>
+            <p class="section-subtitle">Each apartment tells its own story. Choose the one that speaks to you.</p>
+        </div>
+
+        <div class="property-list">
+            <!-- Big Open -->
+            <article class="property-item">
+                <div class="property-visual">
+                    <img src="images/bigopen/hero1.avif" alt="Big Open Apartment" class="property-img-main">
+                    <img src="images/bigopen/hero garden.avif" alt="Garden" class="property-img-secondary">
+                </div>
+                <div class="property-content">
+                    <div class="property-number">01</div>
+                    <h3 class="property-name">Big Open</h3>
+                    <p class="property-tagline">"Space to breathe, room to gather"</p>
+                    <p class="property-description">
+                        Our flagship 90m² residence designed for families and groups who refuse to compromise on space. 
+                        A 30m² living area flows onto a private terrace with BBQ grill and children's playground. 
+                        The master bedroom features a 36cm high diamond orthopedic mattress that guests describe as 
+                        "sleeping on a cloud." With automatic ventilation providing fresh mountain air and free private 
+                        parking at your door, this is Maribor living at its finest.
+                    </p>
+                    <div class="property-features">
+                        <div class="feature"><i class="fas fa-users"></i> Up to 7+1 guests</div>
+                        <div class="feature"><i class="fas fa-bed"></i> 2 bedrooms (2+3 beds)</div>
+                        <div class="feature"><i class="fas fa-tree"></i> Private garden & terrace</div>
+                        <div class="feature"><i class="fas fa-fire"></i> BBQ grill</div>
+                        <div class="feature"><i class="fas fa-car"></i> Free parking</div>
+                        <div class="feature"><i class="fas fa-wind"></i> Auto ventilation</div>
+                        <div class="feature"><i class="fas fa-child"></i> Kids playground</div>
+                        <div class="feature"><i class="fas fa-crown"></i> Premium mattress</div>
+                    </div>
+                    <div class="property-rating">
+                        <span class="rating-score">4.67</span>
+                        <span class="rating-stars">★★★★★</span>
+                        <span class="rating-count">209 reviews</span>
+                    </div>
+                    <div class="property-price">
+                        <strong>€120</strong> <span>/ night</span>
+                    </div>
+                    <div class="property-actions">
+                        <button class="btn-primary" onclick="showBooking('bigopen')">Check Availability</button>
+                        <button class="btn-secondary" onclick="openGallery('bigopen')">View Photos</button>
+                    </div>
+                </div>
+            </article>
+
+            <!-- LTE High -->
+            <article class="property-item">
+                <div class="property-visual">
+                    <img src="images/ltehigh/livingroom.jpg" alt="LTE High Apartment" class="property-img-main">
+                    <img src="images/ltehigh/bedroom.jpg" alt="Bedroom" class="property-img-secondary">
+                </div>
+                <div class="property-content">
+                    <div class="property-number">02</div>
+                    <h3 class="property-name">LTE High</h3>
+                    <p class="property-tagline">"Elevate your stay"</p>
+                    <p class="property-description">
+                        Ascend to a higher plane of relaxation in this architecturally unique space. 
+                        The soaring ceilings create an atmosphere of openness, while the aerial yoga hammock 
+                        invites you to literally hang out and unwind. Automated heating and ventilation ensure 
+                        perfect comfort year-round, and the wood-detailed bathroom with floor heating adds 
+                        a touch of spa-like luxury. Netflix on the SMART TV, a fully equipped kitchen, 
+                        and garden views complete this wellness-focused retreat.
+                    </p>
+                    <div class="property-features">
+                        <div class="feature"><i class="fas fa-users"></i> Up to 6 guests</div>
+                        <div class="feature"><i class="fas fa-bed"></i> 1 bedroom + sofa</div>
+                        <div class="feature"><i class="fas fa-spa"></i> Aerial yoga hammock</div>
+                        <div class="feature"><i class="fas fa-wifi"></i> High-speed WiFi</div>
+                        <div class="feature"><i class="fas fa-tv"></i> Netflix ready</div>
+                        <div class="feature"><i class="fas fa-temperature-high"></i> Floor heating</div>
+                        <div class="feature"><i class="fas fa-bath"></i> Wood-detail bathroom</div>
+                        <div class="feature"><i class="fas fa-leaf"></i> Garden view</div>
+                    </div>
+                    <div class="property-rating">
+                        <span class="rating-score">4.71</span>
+                        <span class="rating-stars">★★★★★</span>
+                        <span class="rating-count">163 reviews</span>
+                    </div>
+                    <div class="property-price">
+                        <strong>€100</strong> <span>/ night</span>
+                    </div>
+                    <div class="property-actions">
+                        <button class="btn-primary" onclick="showBooking('ltehigh')">Check Availability</button>
+                        <button class="btn-secondary" onclick="openGallery('ltehigh')">View Photos</button>
+                    </div>
+                </div>
+            </article>
+
+            <!-- High Q -->
+            <article class="property-item">
+                <div class="property-visual">
+                    <img src="images/highun/kitchen.jpg" alt="High Q Apartment" class="property-img-main">
+                    <img src="images/highun/living room.avif" alt="Living Room" class="property-img-secondary">
+                </div>
+                <div class="property-content">
+                    <div class="property-number">03</div>
+                    <h3 class="property-name">High Q</h3>
+                    <p class="property-tagline">"Quality in every detail"</p>
+                    <p class="property-description">
+                        Quality meets convenience in this impeccably designed city retreat. Located just 
+                        steps from a market and minutes from the center, High Q puts Maribor at your fingertips. 
+                        The designer kitchen inspires culinary adventures, while the SMART TV with HBO Max 
+                        and Disney+ ensures entertainment for all tastes. Two cozy bedrooms, adjustable 
+                        ambient lighting, and a private outdoor terrace create the perfect urban sanctuary 
+                        for up to 6 guests seeking the finer things.
+                    </p>
+                    <div class="property-features">
+                        <div class="feature"><i class="fas fa-users"></i> Up to 6 guests</div>
+                        <div class="feature"><i class="fas fa-bed"></i> 2 bedrooms</div>
+                        <div class="feature"><i class="fas fa-tv"></i> HBO Max & Disney+</div>
+                        <div class="feature"><i class="fas fa-utensils"></i> Designer kitchen</div>
+                        <div class="feature"><i class="fas fa-store"></i> Market 50m away</div>
+                        <div class="feature"><i class="fas fa-city"></i> Near city center</div>
+                        <div class="feature"><i class="fas fa-sun"></i> Outdoor terrace</div>
+                        <div class="feature"><i class="fas fa-lightbulb"></i> Adjustable lighting</div>
+                    </div>
+                    <div class="property-rating">
+                        <span class="rating-score">4.53</span>
+                        <span class="rating-stars">★★★★★</span>
+                        <span class="rating-count">115 reviews</span>
+                    </div>
+                    <div class="property-price">
+                        <strong>€90</strong> <span>/ night</span>
+                    </div>
+                    <div class="property-actions">
+                        <button class="btn-primary" onclick="showBooking('highun')">Check Availability</button>
+                        <button class="btn-secondary" onclick="openGallery('highun')">View Photos</button>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- Booking Section -->
+    <section id="booking" class="section booking">
+        <div class="section-header">
+            <div class="section-label">Reservations</div>
+            <h2 class="section-title">Book Your Stay</h2>
+            <p class="section-subtitle">Select your apartment and preferred dates</p>
+        </div>
+
+        <div class="booking-tabs">
+            <button class="booking-tab active" onclick="switchTab('bigopen')">Big Open</button>
+            <button class="booking-tab" onclick="switchTab('ltehigh')">LTE High</button>
+            <button class="booking-tab" onclick="switchTab('highun')">High Q</button>
+        </div>
+
+        <!-- Big Open Booking -->
+        <div id="bigopen-booking" class="booking-content active">
+            <div class="widget-box">
+                <h4 class="widget-title">Pricing & Availability</h4>
+                <script src="//www.bentral.com/service/embed/price-list.js?uid=5f5455354f54554d&id=5f6a677a4d775f4e&poweredby=0&key=92f19df1c4e95bdac1b0b8cbc84899ec"></script>
+            </div>
+            <div class="widget-box">
+                <h4 class="widget-title">Calendar</h4>
+                <script src="//www.bentral.com/service/embed/calendar.js?uid=5f5455354f54554d&unit=5f5455354f54554d&last=true&poweredby=0&key=92f19df1c4e95bdac1b0b8cbc84899ec"></script>
+            </div>
+            <div class="widget-box">
+                <h4 class="widget-title">Complete Booking</h4>
+                <script src="//www.bentral.com/service/embed/booking.js?id=5f6a677a4d775f4e&poweredby=0&key=92f19df1c4e95bdac1b0b8cbc84899ec"></script>
+            </div>
+        </div>
+
+        <!-- LTE High Booking -->
+        <div id="ltehigh-booking" class="booking-content">
+            <div class="widget-box">
+                <h4 class="widget-title">LTE High Apartment</h4>
+                <p style="text-align: center; padding: 3rem; color: #666;">
+                    <i class="fas fa-envelope" style="font-size: 2rem; color: var(--ochre); margin-bottom: 1rem; display: block;"></i>
+                    <strong>Contact us to book LTE High</strong><br><br>
+                    Starting from €100/night<br>
+                    Contact Jernej directly for availability and reservations.<br><br>
+                    <em>Add Bentral widget code here when available</em>
+                </p>
+            </div>
+        </div>
+
+        <!-- High Q Booking -->
+        <div id="highun-booking" class="booking-content">
+            <div class="widget-box">
+                <h4 class="widget-title">High Q Apartment</h4>
+                <p style="text-align: center; padding: 3rem; color: #666;">
+                    <i class="fas fa-envelope" style="font-size: 2rem; color: var(--ochre); margin-bottom: 1rem; display: block;"></i>
+                    <strong>Contact us to book High Q</strong><br><br>
+                    Starting from €90/night<br>
+                    Contact Jernej directly for availability and reservations.<br><br>
+                    <em>Add Bentral widget code here when available</em>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div>
+                <div class="footer-brand">LTE apartments</div>
+                <p class="footer-tagline">
+                    Curated luxury accommodations in the heart of Maribor. 
+                    Where every detail is designed for your comfort.
+                </p>
+            </div>
+            <div>
+                <h5 class="footer-heading">Properties</h5>
+                <ul class="footer-links">
+                    <li><a href="#properties">Big Open</a></li>
+                    <li><a href="#properties">LTE High</a></li>
+                    <li><a href="#properties">High Q</a></li>
+                </ul>
+            </div>
+            <div>
+                <h5 class="footer-heading">Information</h5>
+                <ul class="footer-links">
+                    <li><a href="#">Check-in Guide</a></li>
+                    <li><a href="#">House Rules</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Local Tips</a></li>
+                </ul>
+            </div>
+            <div>
+                <h5 class="footer-heading">Contact</h5>
+                <ul class="footer-links">
+                    <li><a href="#">Message Host</a></li>
+                    <li><a href="#">Airbnb Profile</a></li>
+                    <li><a href="#">Maribor, Slovenia</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>&copy; 2026 LTE apartments. All rights reserved.</span>
+            <span>Hosted with care for 8 years</span>
+        </div>
+    </footer>
+
+    <script>
+        // Navigation scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('.nav');
+            if (window.scrollY > 100) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Booking tab switching
+        function switchTab(property) {
+            document.querySelectorAll('.booking-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            document.querySelectorAll('.booking-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(property + '-booking').classList.add('active');
+        }
+
+        // Show booking section from property card
+        function showBooking(property) {
+            document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
+            
+            // Switch to correct tab
+            document.querySelectorAll('.booking-tab').forEach((tab, index) => {
+                tab.classList.remove('active');
+                if ((property === 'bigopen' && index === 0) ||
+                    (property === 'ltehigh' && index === 1) ||
+                    (property === 'highun' && index === 2)) {
+                    tab.classList.add('active');
+                }
+            });
+
+            document.querySelectorAll('.booking-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(property + '-booking').classList.add('active');
+        }
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+        // Photo Gallery
+        const galleries = {
+            bigopen: [
+                'images/bigopen/hero1.avif',
+                'images/bigopen/hero garden.avif',
+                'images/bigopen/hero2.avif',
+                'images/bigopen/hero3.avif',
+                'images/bigopen/hero garden 2.avif',
+                'images/bigopen/hero4 bedroom 1 36 cm high, diamond 7 cons 5 stars mattress image b.avif',
+                'images/bigopen/hero4 bedroom 2.avif',
+                'images/bigopen/hero bathroom.avif',
+                'images/bigopen/hero bathroom 2.avif',
+                'images/bigopen/hero bathroom 3.avif',
+                'images/bigopen/hero table.avif'
+            ],
+            ltehigh: [
+                'images/ltehigh/livingroom.jpg',
+                'images/ltehigh/bedroom.jpg',
+                'images/ltehigh/livingroom2.avif',
+                'images/ltehigh/livingroom3tablebed.avif',
+                'images/ltehigh/livingroom4tablebed.avif',
+                'images/ltehigh/livingroom5couch.avif',
+                'images/ltehigh/livingroom5couchb.avif',
+                'images/ltehigh/livingroom6bed.avif',
+                'images/ltehigh/bathrooom.avif',
+                'images/ltehigh/bathrooom2.avif',
+                'images/ltehigh/kitchendetails.avif',
+                'images/ltehigh/kitchendetails2.jpg',
+                'images/ltehigh/garden.avif',
+                'images/ltehigh/entrance.avif'
+            ],
+            highun: [
+                'images/highun/kitchen.jpg',
+                'images/highun/living room.avif',
+                'images/highun/bedroom1.avif',
+                'images/highun/bedroom1b.avif',
+                'images/highun/bedroom1d.jpg',
+                'images/highun/bedroom2.avif',
+                'images/highun/bedroom2b.avif',
+                'images/highun/bedroom2c.avif',
+                'images/highun/bedroom2d.avif',
+                'images/highun/bathroom.jpg',
+                'images/highun/garden.avif',
+                'images/highun/kitchen + table.avif',
+                'images/highun/kitchen + tablew2.avif',
+                'images/highun/kitchen details.jpg',
+                'images/highun/kitchen details2.avif',
+                'images/highun/livingroom all.jpg',
+                'images/highun/livingroom mirror.jpg'
+            ]
+        };
+
+        let currentGallery = [];
+        let currentIndex = 0;
+
+        function openGallery(property) {
+            currentGallery = galleries[property] || [];
+            currentIndex = 0;
+            if (currentGallery.length > 0) {
+                showImage(0);
+                document.getElementById('gallery-modal').classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeGallery() {
+            document.getElementById('gallery-modal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function showImage(index) {
+            if (index < 0) index = currentGallery.length - 1;
+            if (index >= currentGallery.length) index = 0;
+            currentIndex = index;
+            
+            const img = document.getElementById('gallery-image');
+            const counter = document.getElementById('gallery-counter');
+            img.src = currentGallery[index];
+            counter.textContent = `${index + 1} / ${currentGallery.length}`;
+        }
+
+        function nextImage() {
+            showImage(currentIndex + 1);
+        }
+
+        function prevImage() {
+            showImage(currentIndex - 1);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (!document.getElementById('gallery-modal').classList.contains('active')) return;
+            if (e.key === 'Escape') closeGallery();
+            if (e.key === 'ArrowRight') nextImage();
+            if (e.key === 'ArrowLeft') prevImage();
+        });
+
+        // Close on background click
+        document.getElementById('gallery-modal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('gallery-modal')) {
+                closeGallery();
+            }
+        });
+    </script>
+
+    <!-- Photo Gallery Modal -->
+    <div id="gallery-modal" class="gallery-modal">
+        <button class="gallery-close" onclick="closeGallery()">
+            <i class="fas fa-times"></i>
+        </button>
+        <button class="gallery-nav gallery-prev" onclick="prevImage()">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="gallery-nav gallery-next" onclick="nextImage()">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+        <div class="gallery-content">
+            <img id="gallery-image" src="" alt="Gallery image">
+            <div id="gallery-counter" class="gallery-counter">1 / 10</div>
+        </div>
+    </div>
+</body>
+</html>
