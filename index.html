@@ -1392,22 +1392,37 @@
         // Touch swipe support for mobile
         let touchStartX = 0;
         let touchEndX = 0;
-        const galleryModal = document.getElementById('gallery-modal');
+        let touchStartY = 0;
+        let touchEndY = 0;
 
-        galleryModal.addEventListener('touchstart', (e) => {
-            touchStartX = e.changedTouches[0].screenX;
-        }, { passive: true });
+        function setupTouchEvents() {
+            const galleryImage = document.getElementById('gallery-image');
+            const galleryContent = document.querySelector('.gallery-content');
+            
+            if (!galleryImage || !galleryContent) return;
+            
+            [galleryImage, galleryContent].forEach(el => {
+                el.addEventListener('touchstart', (e) => {
+                    touchStartX = e.changedTouches[0].screenX;
+                    touchStartY = e.changedTouches[0].screenY;
+                }, { passive: true });
 
-        galleryModal.addEventListener('touchend', (e) => {
-            touchEndX = e.changedTouches[0].screenX;
-            handleSwipe();
-        }, { passive: true });
+                el.addEventListener('touchend', (e) => {
+                    touchEndX = e.changedTouches[0].screenX;
+                    touchEndY = e.changedTouches[0].screenY;
+                    handleSwipe();
+                }, { passive: true });
+            });
+        }
 
         function handleSwipe() {
             const swipeThreshold = 50;
-            const diff = touchStartX - touchEndX;
-            if (Math.abs(diff) > swipeThreshold) {
-                if (diff > 0) {
+            const diffX = touchStartX - touchEndX;
+            const diffY = touchStartY - touchEndY;
+            
+            // Only trigger if horizontal swipe is greater than vertical swipe
+            if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > swipeThreshold) {
+                if (diffX > 0) {
                     nextImage(); // Swipe left -> next
                 } else {
                     prevImage(); // Swipe right -> previous
@@ -1415,9 +1430,16 @@
             }
         }
 
+        // Setup touch events after DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', setupTouchEvents);
+        } else {
+            setupTouchEvents();
+        }
+
         // Close on background click
-        galleryModal.addEventListener('click', (e) => {
-            if (e.target === galleryModal) {
+        document.getElementById('gallery-modal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('gallery-modal')) {
                 closeGallery();
             }
         });
