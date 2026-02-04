@@ -1389,9 +1389,35 @@
             if (e.key === 'ArrowLeft') prevImage();
         });
 
+        // Touch swipe support for mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+        const galleryModal = document.getElementById('gallery-modal');
+
+        galleryModal.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        galleryModal.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, { passive: true });
+
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const diff = touchStartX - touchEndX;
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0) {
+                    nextImage(); // Swipe left -> next
+                } else {
+                    prevImage(); // Swipe right -> previous
+                }
+            }
+        }
+
         // Close on background click
-        document.getElementById('gallery-modal').addEventListener('click', (e) => {
-            if (e.target === document.getElementById('gallery-modal')) {
+        galleryModal.addEventListener('click', (e) => {
+            if (e.target === galleryModal) {
                 closeGallery();
             }
         });
